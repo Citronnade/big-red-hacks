@@ -16,7 +16,7 @@
 
 <template name="mainLayout">
 	<header>
-		<h1>Title</h1>
+		<h1>Waiting for Food</h1>
 	</header>
 
 	<main>
@@ -30,10 +30,7 @@
 
 <template name="eatery_page">
 	{{> timer}}
-	Hello friends
 	<ul>
-		{{#each get_data}}
-			<li>{{this.name}}</li>
-		{{/each}}
-	</ul>u
+		<li>{{get_data.name}}</li>
+	</ul>
 </template>

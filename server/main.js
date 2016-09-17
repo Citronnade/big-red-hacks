@@ -24,4 +24,4 @@ Meteor.methods({
 	"removeAllEntries": function(){
 		return Eateries.remove({});
 	}
-})
+});
