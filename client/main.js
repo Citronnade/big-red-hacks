@@ -21,7 +21,7 @@ Template.eatery_page.onCreated(function(){
 Template.eatery_page.helpers({
     "get_data": function(){
         console.log(Eateries.find().fetch());
-        return Eateries.find().fetch();
+        return Eateries.find({name:FlowRouter.getParam('eateryName')}).fetch();
     }
 });
 
