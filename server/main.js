@@ -7,8 +7,13 @@ Meteor.startup(() => {
         var data = JSON.parse(Assets.getText("mock_data.json"));
 
         data.forEach(function (item, index, array) {
+            for(var i = 0; i < item.time.length; i++) {
+                item.time[i]["gotInLine"] = new Date(item.time[i]["gotInLine"]);
+                item.time[i]["orderedFood"] = new Date(item.time[i]["orderedFood"]);
+                item.time[i]["gotFood"] = new Date(item.time[i]["gotFood"]);
+            }
             Eateries.insert(item);
-        })
+        });
     }
 });
 
