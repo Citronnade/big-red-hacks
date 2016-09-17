@@ -13,6 +13,15 @@ Template.eateries_cards.onCreated(function(){
 Template.eateries_cards.helpers({
     'get_eateries': function(){
         return Eateries.find({}, { sort: {name: 1} })
+    },
+    'compute_time': function(){
+        //var eateryTime = Eateries.find({name:this.name}, {sort: {gotFood : -1} })[0];
+        var eatery = Eateries.find({name:this.name}).fetch()[0];
+        var times = eatery.time.sort().reverse();
+        var time = times[0]
+        var waitingTime = Math.round((time.gotFood - time.gotInLine)/6000);
+        var updated = time.gotFood;
+        return waitingTime.toString() + " minutes; Updated " + updated
     }
 });
 

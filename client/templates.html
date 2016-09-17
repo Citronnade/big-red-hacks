@@ -5,18 +5,11 @@
 	      <div class="col s6">
 	          <div class="card blue-grey darken-1">
 	          <div class="card-image">
-<<<<<<< HEAD
-	          		<img src="images/{{name}}.jpg">
-=======
 	          		<img class="responsive-img" src="images/{{name}}.jpg">
->>>>>>> af14c04d2fb492498e617fd04085f957cdabcd49
-	          		<span class="card-title">{{name}}</span>
+	          		<span class="card-title">{{this.name}}</span>
 	          </div>
 	            <div class="card-content white-text">
-	              <p>{{#with time}}
-	              	{{this.[0].gotFood}}
-	              {{/with}}
-	              </p>
+	              <p>{{ compute_time }}</p>
 	            </div>
 	          </div>
 	      </div>
