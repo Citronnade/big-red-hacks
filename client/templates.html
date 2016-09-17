@@ -4,12 +4,15 @@
         <a href="/{{name}}">
 	      <div class="col s6">
 	          <div class="card blue-grey darken-1">
-	          <div classs="card-image">
+	          <div class="card-image">
 	          		<img src="images/{{name}}.jpg">
 	          		<span class="card-title">{{name}}</span>
 	          </div>
 	            <div class="card-content white-text">
-	              <p>Hello World!</p>
+	              <p>{{#with time}}
+	              	{{this.[0].gotFood}}
+	              {{/with}}
+	              </p>
 	            </div>
 	          </div>
 	      </div>
@@ -20,7 +23,7 @@
 
 <template name="mainLayout">
 	<header>
-		<a href="/"><h1>Pokenshields</h1></a>
+		<h1><a href="/">Pokenshields</a></h1>
 	</header>
 
 	<main>
@@ -29,7 +32,7 @@
 
 	<footer>
 		<hr />
-		<p>Big Red Hacks 2016 by edward li, jeff huang, tiffany ho, and mz282</p>
+		<p>The mitochondria is the powerhouse of the cell.</p>
 	</footer>
 </template>
 
