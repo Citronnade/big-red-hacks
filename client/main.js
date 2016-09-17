@@ -3,6 +3,29 @@ import { ReactiveVar } from 'meteor/reactive-var';
 
 import './main.html';
 
+Template.eateries_cards.onCreated(function(){
+    var self = this;
+    self.autorun(function() {
+       self.subscribe('all_eateries');
+    });
+});
+
+Template.eatery_page.onCreated(function(){
+    var self = this;
+      self.autorun(function() {
+        var eateryName = FlowRouter.getParam('eateryName');
+        self.subscribe('eateries', eateryName);
+      });
+});
+
+Template.eatery_page.helpers({
+    "get_data": function(){
+        console.log(Eateries.find().fetch());
+        return Eateries.find().fetch();
+    }
+});
+
+
 Template.timer.onCreated(function(){
     this.state = new ReactiveVar(0);
     console.log(this.state.get());
@@ -19,7 +42,7 @@ Template.timer.onCreated(function(){
 });
 
 Template.timer.onDestroyed(function(){
-    Meteor.clearInterval(time_interval);
+    Meteor.clearInterval(this.time_interval);
 });
 
 Template.timer.helpers({

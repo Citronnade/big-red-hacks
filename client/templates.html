@@ -1,11 +1,3 @@
-<template name="eateries">
-	<ul>
-	    {{#each get_eateries}}
-	        <li><button class="btn">{{name}}</button></li>
-	    {{/each}}
-    </ul>
-</template>
-
 <template name="eateries_cards">
 	<div class="row">     
         {{#each get_eateries}}
@@ -37,6 +29,11 @@
 </template>
 
 <template name="eatery_page">
-	{{timer}}
-	{{wait_time}}
+	{{> timer}}
+	Hello friends
+	<ul>
+		{{#each get_data}}
+			<li>{{this.name}}</li>
+		{{/each}}
+	</ul>u
 </template>
