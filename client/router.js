@@ -9,4 +9,3 @@ FlowRouter.route('/:eateryName', {
     BlazeLayout.render("mainLayout", {content: "eatery_page"});
   }
 });
-
