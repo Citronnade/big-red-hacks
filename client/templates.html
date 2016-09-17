@@ -1,0 +1,37 @@
+<template name="eateries">
+	<ul>
+	    {{#each get_eateries}}
+	        <li><button class="btn">{{name}}</button></li>
+	    {{/each}}
+    </ul>
+</template>
+
+<template name="eateries_cards">
+	<div class="row">     
+        {{#each get_eateries}}
+        <a href="/{{name}}">
+	      <div class="col s6">
+	          <div class="card blue-grey darken-1">
+	            <div class="card-content white-text">
+	              <span class="card-title">{{name}}</span>
+	            </div>
+	          </div>
+	      </div>
+        </a>
+        {{/each}}
+      </div>
+</template>
+
+<template name="mainLayout">
+	<header>
+		<h1>Title</h1>
+	</header>
+
+	<main>
+		{{>Template.dynamic template=content}}
+	</main>
+
+	<footer>
+		<p>Big Red Hacks 2016</p>
+	</footer>
+</template>
