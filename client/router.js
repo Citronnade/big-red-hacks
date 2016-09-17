@@ -5,7 +5,9 @@ FlowRouter.route('/', {
 });
 
 FlowRouter.route('/:eateryName', {
-  action: function() {
+  action: function(params) {
     BlazeLayout.render("mainLayout", {content: "timer"});
   }
 });
+
+FlowRouter.route()
