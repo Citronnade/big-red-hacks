@@ -10,6 +10,12 @@ Template.eateries_cards.onCreated(function(){
     });
 });
 
+Template.eateries_cards.helpers({
+    'get_eateries': function(){
+        return Eateries.find({}, { sort: {name: 1} })
+    }
+});
+
 Template.eatery_page.onCreated(function(){
     var self = this;
       self.autorun(function() {
@@ -119,7 +125,6 @@ Template.timer.events({
             case 3:
                 instance.reset_template();
                 break;
-
         }
     },
     "click #submit": function(event, instance){
