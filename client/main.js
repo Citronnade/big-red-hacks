@@ -34,9 +34,16 @@ Template.timer.onCreated(function(){
     this.current_time = new ReactiveVar(0);
 
     var self = this;
-    this.time_interval = Meteor.setInterval(function(){
-        self.current_time.set(new Date())
-    }, 10)
+    this.reset_template = function(){
+        self.time1.set(0);
+        self.time2.set(0);
+        self.time3.set(0);
+        self.state.set(0);
+    };
+
+    // this.time_interval = Meteor.setInterval(function(){
+    //     self.current_time.set(new Date())
+    // }, 10)
 
 });
 
@@ -52,6 +59,9 @@ Template.timer.helpers({
             var new_date = new Date(template.current_time.get() - template.time1.get())
                 .toISOString().substr(14, 8);
             return new_date;
+        }
+        else{
+            return "";
         }
     },
     "get_state_text": function(){
@@ -72,10 +82,8 @@ Template.timer.helpers({
 Template.timer.events({
     "click #reset": function(event, instance){
         event.stopImmediatePropagation();
-        instance.state.set(0);
-        instance.time1.set(0);
-        instance.time2.set(0);
-        instance.time3.set(0);
+        instance.reset_template();
+        Meteor.clearInterval(instance.time_interval);
     },
     "click #button-timer": function(event, instance){
         //TODO: this state method isn't really a good idea
@@ -90,6 +98,10 @@ Template.timer.events({
         switch(current_state){
             case 0:
                 instance.time1.set(d);
+                instance.time_interval = Meteor.setInterval(function(){
+                    instance.current_time.set(new Date())
+                }, 10);
+                console.log("case 0 time_interval", instance.time_interval);
                 instance.state.set(current_state + 1);
                 break;
             case 1:
@@ -99,19 +111,15 @@ Template.timer.events({
             case 2:
                 instance.time3.set(d);
                 instance.state.set(current_state + 1);
-                instance.current_time.set(instance.time3.get());
+                //instance.current_time.set(instance.time3.get());
                 console.log("??");
                 Meteor.clearInterval(instance.time_interval);
+                console.log("case 2 time_interval", instance.time_interval);
                 break;
             case 3:
-                instance.state.set(0);
-                instance.time1.set(0);
-                instance.time2.set(0);
-                instance.time3.set(0);
-                instance.time_interval = Meteor.setInterval(function(){
-                    instance.current_time.set(new Date())
-                }, 10);
+                instance.reset_template();
                 break;
+
         }
     },
     "click #submit": function(event, instance){
@@ -119,9 +127,16 @@ Template.timer.events({
             Materialize.toast("Please finish recording before submitting", 2500);
         }
         else {
+            var eatery_id = Eateries.findOne()._id;
+            Eateries.upsert({_id: eatery_id}, {$push:{time: {
+                "gotInLine": instance.time1.get(),
+                "orderedFood": instance.time2.get(),
+                "gotFood": instance.time3.get()
+            }}});
             console.log("Time 1: ", instance.time1.get());
             console.log("Time 2: ", instance.time2.get());
             console.log("Time 3: ", instance.time3.get());
+            instance.reset_template();
         }
     }
 });
