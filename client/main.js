@@ -120,6 +120,12 @@ Template.timer.events({
             Materialize.toast("Please finish recording before submitting", 2500);
         }
         else {
+            var eatery_id = Eateries.findOne()._id;
+            Eateries.upsert({_id: eatery_id}, {$push:{time: {
+                "gotInLine": instance.time1.get(),
+                "orderedFood": instance.time2.get(),
+                "gotFood": instance.time3.get()
+            }}});
             console.log("Time 1: ", instance.time1.get());
             console.log("Time 2: ", instance.time2.get());
             console.log("Time 3: ", instance.time3.get());
