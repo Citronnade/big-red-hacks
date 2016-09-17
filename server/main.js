@@ -19,3 +19,9 @@ Meteor.startup(() => {
 Meteor.publish('eateries', function eateryPublication(eatery) {
 	return Eateries.find({name:eatery});
 });
+
+Meteor.methods({
+	"removeAllEntries": function(){
+		return Eateries.remove({});
+	}
+})
