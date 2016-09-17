@@ -16,7 +16,7 @@
 
 <template name="mainLayout">
 	<header>
-		<h1>Title</h1>
+		<a href="/"><h1>Pokenshields</h1></a>
 	</header>
 
 	<main>
@@ -24,16 +24,18 @@
 	</main>
 
 	<footer>
-		<p>Big Red Hacks 2016</p>
+		<p>Big Red Hacks 2016 by edward li, jeff huang, tiffany ho, and mz282</p>
 	</footer>
 </template>
 
 <template name="eatery_page">
 	{{> timer}}
-	Hello friends
 	<ul>
 		{{#each get_data}}
 			<li>{{this.name}}</li>
+			{{#each this.time}}
+				<li>{{this.gotInLine}}................{{this.gotFood}}</li>
+			{{/each}}
 		{{/each}}
-	</ul>u
+	</ul>
 </template>
