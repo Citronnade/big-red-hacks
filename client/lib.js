@@ -1,0 +1,1 @@
+Eateries = new Mongo.Collection("Eateries");
