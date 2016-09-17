@@ -32,6 +32,11 @@
 <template name="eatery_page">
 	{{> timer}}
 	<ul>
-		<li>{{get_data.name}}</li>
+		{{#each get_data}}
+			<li>{{this.name}}</li>
+			{{#each this.time}}
+				<li>{{this.gotInLine}}................{{this.gotFood}}</li>
+			{{/each}}
+		{{/each}}
 	</ul>
 </template>
