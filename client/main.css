@@ -1,1 +1,5 @@
-/* CSS declarations go here */
+.button-timer{
+    height: 300px !important;
+    width: 300px !important;
+    font-size: 25px;
+}
