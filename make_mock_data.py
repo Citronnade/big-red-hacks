@@ -31,15 +31,17 @@ def funcGotFood(orderedFood):
 
 
 # actually gets the times and prints them out
-# print('{"times":[')
-entries = []
-for i in range(100, 0, -1):
-	gotInLine = funcGotInLine(gotInLine)
-	orderedFood = funcOrderedFood(gotInLine)
-	gotFood = funcGotFood(orderedFood)
-	entries.append({"gotInLine":str(gotInLine), "orderedFood":str(orderedFood), "gotFood":str(gotFood)})
-	# print(json.dumps({"gotInLine":str(gotInLine), "orderedFood":str(orderedFood), "gotFood":str(gotFood)}, indent = 4))
-	i  -= 1
-# print(']}')
+data = {}
+eateries_list = ["Synapsis", "Trillium"]
+for x in eateries_list:
+	entries = []
+	for i in range(100, 0, -1):
+		gotInLine = funcGotInLine(gotInLine)
+		orderedFood = funcOrderedFood(gotInLine)
+		gotFood = funcGotFood(orderedFood)
+		entries.append({"gotInLine":str(gotInLine), "orderedFood":str(orderedFood), "gotFood":str(gotFood)})
+		# print(json.dumps({"gotInLine":str(gotInLine), "orderedFood":str(orderedFood), "gotFood":str(gotFood)}, indent = 4))
+		i  -= 1
+	data[x] = entries
 
-print(json.dumps(entries, indent = 4))
+print(json.dumps(data, indent = 4))
