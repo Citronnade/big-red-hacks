@@ -35,6 +35,13 @@ Template.timer.onCreated(function(){
     this.current_time = new ReactiveVar(0);
 
     var self = this;
+    this.reset_template = function(){
+        self.time1.set(0);
+        self.time2.set(0);
+        self.time3.set(0);
+        self.state.set(0);
+    };
+
     // this.time_interval = Meteor.setInterval(function(){
     //     self.current_time.set(new Date())
     // }, 10)
@@ -76,10 +83,7 @@ Template.timer.helpers({
 Template.timer.events({
     "click #reset": function(event, instance){
         event.stopImmediatePropagation();
-        instance.time1.set(0);
-        instance.time2.set(0);
-        instance.time3.set(0);
-        instance.state.set(0);
+        instance.reset_template();
         Meteor.clearInterval(instance.time_interval);
     },
     "click #button-timer": function(event, instance){
@@ -114,10 +118,7 @@ Template.timer.events({
                 console.log("case 2 time_interval", instance.time_interval);
                 break;
             case 3:
-                instance.time1.set(0);
-                instance.time2.set(0);
-                instance.time3.set(0);
-                instance.state.set(0);
+                instance.reset_template();
                 break;
 
         }
@@ -136,6 +137,7 @@ Template.timer.events({
             console.log("Time 1: ", instance.time1.get());
             console.log("Time 2: ", instance.time2.get());
             console.log("Time 3: ", instance.time3.get());
+            instance.reset_template();
         }
     }
 });
