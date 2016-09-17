@@ -1,5 +1,7 @@
 # make_mock_data.py
 
+# http://stackoverflow.com/questions/651794/whats-the-best-way-to-initialize-a-dict-of-dicts-in-python
+
 import random
 import datetime
 import json
@@ -39,7 +41,7 @@ eateries_list = ["Synapsis", "Trillium"]
 # for x in range(1, len(eateries_list)):
 for x in eateries_list:
 	entries = []
-	for i in range(100, 0, -1):
+	for i in range(1000, 0, -1):
 		gotInLine = funcGotInLine(gotInLine)
 		orderedFood = funcOrderedFood(gotInLine)
 		gotFood = funcGotFood(orderedFood)
