@@ -3,6 +3,7 @@
 import random
 import datetime
 import json
+import collections
 
 # starting time, opening of the restaurant?
 gotInLine = datetime.datetime(2016, 9, 19, 10, 00, 000)
@@ -31,8 +32,11 @@ def funcGotFood(orderedFood):
 
 
 # actually gets the times and prints them out
-data = {}
+count = 1
+# data = {}
+data = collections.defaultdict(dict)
 eateries_list = ["Synapsis", "Trillium"]
+# for x in range(1, len(eateries_list)):
 for x in eateries_list:
 	entries = []
 	for i in range(100, 0, -1):
@@ -42,6 +46,9 @@ for x in eateries_list:
 		entries.append({"gotInLine":str(gotInLine), "orderedFood":str(orderedFood), "gotFood":str(gotFood)})
 		# print(json.dumps({"gotInLine":str(gotInLine), "orderedFood":str(orderedFood), "gotFood":str(gotFood)}, indent = 4))
 		i  -= 1
-	data[x] = entries
+	# data[x] = entries
+	data[count]['name'] = x
+	data[count]['time'] = entries
+	count += 1
 
 print(json.dumps(data, indent = 4))
