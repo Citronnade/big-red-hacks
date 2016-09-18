@@ -35,6 +35,8 @@
 
 <template name="eatery_page">
 	{{> timer}}
+	<br />
+	{{> wait_times}}
 	<ul>
 		{{#each get_data}}
 			<li>{{this.name}}</li>
@@ -43,4 +45,8 @@
 			{{/each}}
 		{{/each}}
 	</ul>
+</template>
+
+<template name="wait_times">
+  <svg id="wait_times"></svg>
 </template>

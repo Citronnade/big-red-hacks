@@ -39,6 +39,110 @@ Template.eatery_page.helpers({
     }
 });
 
+Template.wait_times.onRendered(function () {
+    //var eateryTime = Eateries.find({name:this.name}, {sort: {gotFood : -1} })[0];
+        var eatery = Eateries.find({name:FlowRouter.getParam('eateryName')}).fetch()[0];
+        console.log(eatery);
+        var times = eatery.time.sort();
+
+        var dataset = [];
+
+        var startTime = new Date(times[0].gotFood);
+        console.log(startTime);
+
+        for (var k = 0; k < times.length; k++) {
+            var time = times[k];
+            var tLine = new Date(time.gotInLine);
+            var tFood = new Date(time.gotFood);
+            var waitingTime = (tFood - tLine)/6000;
+            var time2 = (tFood - startTime)/6000;
+            console.log("Plotted (" + time2 + ", " + waitingTime + ").");
+            dataset.push([time2, waitingTime]); 
+        }
+
+        var w = 600;
+        var h = 400;
+        var padding = 30;
+
+        //Create scale functions
+            var xScale = d3.scale.linear()
+                                 .domain([0, d3.max(dataset, function(d) { return d[0]; })])
+                                 .range([padding, w - padding * 2]);
+
+            var yScale = d3.scale.linear()
+                                 .domain([0, d3.max(dataset, function(d) { return d[1]; })])
+                                 .range([h - padding, padding]);
+
+            var rScale = d3.scale.linear()
+                                 .domain([0, d3.max(dataset, function(d) { return d[1]; })])
+                                 .range([2, 5]);
+
+            //Define X axis
+            var xAxis = d3.svg.axis()
+                              .scale(xScale)
+                              .orient("bottom")
+                              .ticks(5);
+
+            //Define Y axis
+            var yAxis = d3.svg.axis()
+                              .scale(yScale)
+                              .orient("left")
+                              .ticks(5);
+
+            //Create SVG element
+            var svg = d3.select("body")
+                        .append("svg")
+                        .attr("width", w)
+                        .attr("height", h);
+
+            //Create circles
+            svg.selectAll("circle")
+               .data(dataset)
+               .enter()
+               .append("circle")
+               .attr("cx", function(d) {
+                    return xScale(d[0]);
+               })
+               .attr("cy", function(d) {
+                    return yScale(d[1]);
+               })
+               .attr("r", function(d) {
+                    return rScale(5);
+               });
+
+            /*
+            //Create labels
+            svg.selectAll("text")
+               .data(dataset)
+               .enter()
+               .append("text")
+               .text(function(d) {
+                    return d[0] + "," + d[1];
+               })
+               .attr("x", function(d) {
+                    return xScale(d[0]);
+               })
+               .attr("y", function(d) {
+                    return yScale(d[1]);
+               })
+               .attr("font-family", "sans-serif")
+               .attr("font-size", "11px")
+               .attr("fill", "red");
+            */
+            
+            //Create X axis
+            svg.append("g")
+                .attr("class", "axis")
+                .attr("transform", "translate(0," + (h - padding) + ")")
+                .call(xAxis);
+            
+            //Create Y axis
+            svg.append("g")
+                .attr("class", "axis")
+                .attr("transform", "translate(" + padding + ",0)")
+                .call(yAxis);
+});
+
 
 Template.timer.onCreated(function(){
     this.state = new ReactiveVar(0);

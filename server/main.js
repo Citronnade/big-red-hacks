@@ -14,7 +14,7 @@ Meteor.startup(() => {
             }
             Eateries.insert(item);
         });
-    }
+    }	
 });
 
 Meteor.publish('all_eateries', function eateriesPublication() {
